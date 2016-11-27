@@ -38,7 +38,19 @@
             });
         },
         "renameFile": function (fileName) {
-            return properties.fs.rename(methods.getComposedPath(fileName), methods.getComposedPath(methods.processString(fileName, properties.blackList)));
+            try {
+                var filteredName = methods.processString(fileName, properties.blackList);
+                properties.fs.rename(methods.getComposedPath(fileName), methods.getComposedPath(filteredName));
+                methods.showFileName(fileName, filteredName);
+            } catch (e) {
+                console.log(e);
+                console.log(["error changing file:", fileName].join(" "));
+            }
+
+        },
+        "showFileName": function (original, newName) {
+            console.log("original file name is: " + original);
+            console.log("new file name is: " + newName);
         },
         "processString": function (string, dictionary) {
             var newString = [];

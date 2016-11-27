@@ -13,7 +13,13 @@ def list_files():
 
 
 def rename_file(file_name):
-    os.rename(path + file_name, file_name.translate(None, blackList))
+    filteredName = file_name.translate(None, blackList)
+    os.rename(path + file_name, path + filteredName)
+    showFileName(file_name, filteredName)
 
+
+def showFileName(original, newName):
+    print("original file name is: " + original)
+    print("new file name is: " + newName)
 
 init()
